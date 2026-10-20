@@ -1,3 +1,5 @@
+import json
+
 # plant_name="パキラ"
 # plant_heights=[2,4,6]
 
@@ -10,10 +12,10 @@
 # print(plant_name)
 # print(plant_heights)
 
-plant={
-    "name":"パキラ",
-    "heights":[2,4,6,8]
-}
+# plant={
+#     "name":"パキラ",
+#     "heights":[2,4,6,8]
+# }
 
 # print(plant["name"])
 # print(plant["heights"])
@@ -46,3 +48,10 @@ new_height=float(input("今回の高さ："))
 plant["heights"].append(new_height)
 
 print(plant["heights"])
+
+growth=plant["heights"][-1]-plant["heights"][0]
+
+print("成長量：",growth,"cm")
+
+with open("plant.json","w",encoding="utf-8") as file:
+    json.dump(plant,file,ensure_ascii=False,indent=4)
