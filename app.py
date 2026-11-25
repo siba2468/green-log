@@ -37,7 +37,7 @@ def home():
         with open(DATA_FILE, "w", encoding="utf-8") as file:
             json.dump(data, file, ensure_ascii=False, indent=4)
 
-        return redirect("/")
+        return redirect(f"/?id={plant_id}")
 
     name = plant["name"]
 
@@ -56,11 +56,33 @@ def home():
     else:
         last_water = "まだ記録がありません"
 
+    if plant_id == 0:
+        folder_name = "pachira"
+        
+    else:
+        folder_name = "table_yashi"
+
+    photo_folder = Path(__file__).parent / "static/photos" / folder_name
+    photos = sorted(photo_folder.glob("*.jpg"))
+
+    print(photos)
+
+    photo_html = ""
+
+    for photo in photos:
+        photo_html += f"""
+        <div class="photo-card">
+            <p>撮影日：{photo.stem[:10]}</p>
+            <img src="/static/photos/{folder_name}/{photo.name}" width="300">
+        </div>
+        """
+
     return f"""
-    <html>
+        <html>
     <head>
         <meta charset="utf-8">
         <title>Green Log</title>
+        <link rel="stylesheet" href="/static/style.css">
     </head>
     <body>
         <h1>Green Log 🌱</h1>
@@ -74,6 +96,9 @@ def home():
             <button type="submit">表示する</button>
         </form>
         <h2>植物名：{name}</h2>
+        <div class="album">
+            {photo_html}
+        </div>
 
         <p>現在の高さ：{latest_height} cm</p>
         <p>成長量：{growth} cm</p>

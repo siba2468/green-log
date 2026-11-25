@@ -1,0 +1,22 @@
+body {
+    background-color: #f0f5ef;
+    color: #333333;
+    font-family: sans-serif;
+    padding: 20px;
+}
+
+h1 {
+    color: #2e6b45;
+}
+
+.album {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.photo-card {
+    background-color: white;
+    padding: 15px;
+    border-radius: 10px;
+}
